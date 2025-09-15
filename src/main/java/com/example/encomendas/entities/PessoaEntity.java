@@ -8,6 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +20,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "pessoas")
+@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
 @AllArgsConstructor
@@ -27,7 +31,7 @@ public class PessoaEntity {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     @NonNull
-    @Column(length = 500)
+    @Column(length = 600)
     private String nome;
     @NonNull
     @Column(length = 50)
@@ -39,5 +43,6 @@ public class PessoaEntity {
     @Column(length = 14)
     private String cpf;
     //1 x N --> 1 pessoa possui 1 ou muitos contatos
+    @OneToMany
     private ArrayList<ContatoEntity> contatos;
 }
